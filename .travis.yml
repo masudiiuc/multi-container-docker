@@ -1,11 +1,10 @@
-sudo: required
 services:
   - docker
 
 before_install:
   - docker build -t masudiiuc/react-test -f ./client/Dockerfile.dev ./client
 
-scripts:
+script:
   - docker run masudiiuc/react-test npm test -- --coverage
 
 after_success:
