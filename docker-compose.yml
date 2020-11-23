@@ -18,7 +18,7 @@ services:
       - POSTGRES_PASSWORD=postgres_password
   redis:
     image: "redis:latest"
-  server:
+  api:
     build:
       dockerfile: Dockerfile.dev # only the docker file name, NO PATH IS NEEDED
       context: ./server # show the path of dockerfile, ONLY THE PATH, NO FILE NAME
