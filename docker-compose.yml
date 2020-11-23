@@ -1,0 +1,25 @@
+# steps:
+#________________________________________
+# postgres:
+#   image
+# redis:
+#   image
+# server:
+#   specify build
+#   specify volumes
+#   specify env variables
+#________________________________________
+
+version: "3"
+services:
+  postgres:
+    image: "postgres:latest"
+  redis:
+    image: "redis:latest"
+  server:
+    build:
+      dockerfile: Dockerfile.dev # only the docker file name, NO PATH IS NEEDED
+      context: ./server # show the path of dockerfile, ONLY THE PATH, NO FILE NAME
+    volumes:
+      - /app/node_modules # DON'T Override, Just ready only
+      - ./server:/app # pattern: local vol path: docker path
