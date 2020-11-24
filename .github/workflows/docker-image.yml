@@ -18,3 +18,18 @@ jobs:
       run: |
         docker build -t masudiiuc/react-test -f ./client/Dockerfile.dev ./client
         docker run -e CI=true masudiiuc/react-test npm test -- --coverage
+        
+    - name: Build Production image of each container
+    - run: |
+        docker build -t masudiiuc/multi-container-client ./client
+        docker build -t masudiiuc/multi-container-server ./server
+        docker build -t masudiiuc/multi-container-worker ./worker
+        docker build -t masudiiuc/multi-container-nginx ./nginx
+        
+    - name: Push to Docker Hub
+    - run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+        docker push masudiiuc/multi-container-client
+        docker push masudiiuc/multi-container-nginx
+        docker push masudiiuc/multi-container-server
+        docker push masudiiuc/multi-container-worker
