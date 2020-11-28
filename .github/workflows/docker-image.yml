@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Login to Docker Hub
+    - uses: docker/login-action@v1
+    - with: 
+        username: ${{ secrets.DOCKER_ID }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
     - uses: actions/checkout@v2
     - name: Build Client Docker image with Test Coverage
       run: |
@@ -25,10 +31,9 @@ jobs:
         docker build -t masudiiuc/multi-container-server ./server
         docker build -t masudiiuc/multi-container-worker ./worker
         docker build -t masudiiuc/multi-container-nginx ./nginx
-        
+          
     - name: Push to Docker Hub
       run: |
-        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
         docker push masudiiuc/multi-container-client
         docker push masudiiuc/multi-container-nginx
         docker push masudiiuc/multi-container-server
