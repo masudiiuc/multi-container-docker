@@ -15,9 +15,11 @@ after_success:
 
   # ------------- Push to Docker Hub ------------
   # step 1: Add env variable $docker_id and $docker_password in Travis Repository settings
+
   # step 2: login to docker hub using Docker login
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # step 2:
+
+  # step 3:
   - docker push masudiiuc/multi-container-client
   - docker push masudiiuc/multi-container-nginx
   - docker push masudiiuc/multi-container-server
